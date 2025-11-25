@@ -2,3 +2,4 @@ sports Team won the match today
 business Market price increased this month
 tech New software update released
 sports Player scored two goals
+he is a good player 
