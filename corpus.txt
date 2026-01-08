@@ -1,0 +1,20 @@
+machine learning artificial intelligence neural networks deep learning
+python programming java c++ machine learning algorithms data science
+natural language processing nlp text mining sentiment analysis topic modeling
+computer vision image recognition object detection convolutional networks
+reinforcement learning q learning policy gradient deep reinforcement learning
+python machine learning scikit learn pandas numpy tensorflow keras
+java programming spring boot microservices enterprise development rest api
+web development javascript react angular vue node express
+database systems sql nosql mongodb postgresql mysql redis
+cloud computing aws azure google cloud kubernetes docker containers
+cybersecurity encryption firewall penetration testing vulnerability security
+blockchain bitcoin ethereum cryptocurrency smart contracts defi nft
+quantum computing qubits superposition entanglement quantum algorithms
+data engineering etl pipelines apache spark hadoop kafka streaming
+devops ci cd jenkins gitlab github actions docker kubernetes
+mobile development ios android flutter react native kotlin swift
+game development unity unreal engine c sharp graphics rendering
+machine learning artificial intelligence ai ethics bias fairness explainability
+deep learning transformers bert gpt language models nlp
+big data analytics hadoop spark data lake warehouse business intelligence
