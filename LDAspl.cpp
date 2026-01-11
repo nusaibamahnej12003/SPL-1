@@ -8,165 +8,308 @@
 #include <algorithm>
 #include <cmath>
 #include <random>
+#include <iomanip>
 
 using namespace std;
 
-
-const double ALPHA = 0.1;      
-const double BETA = 0.01;      
-const int ITERATIONS = 3000;   
-const int NUM_TOPICS = 3;      
+const double ALPHA = 0.1;       
+const double BETA = 0.01;        
+const double ETA = 150.0;        
+const int ITERATIONS = 1000;    
 
 struct Document {
-    string originalText;
-    vector<int> words;
+    string rawText;
+    string label;
+    int labelId;
+    vector<int> wordIndices;
+    vector<int> topicAssignments;
 };
 
-class TopicModeler {
+class SupervisedLDA {
 private:
-    int K, V, D;
+    int K; 
+    int V; 
+    int D; 
+
     vector<Document> docs;
     vector<string> vocab;
-    map<string, int> word2id;
-    set<string> stopwords;
+    map<string, int> wordToId;
+    map<string, int> labelToId;
+    map<int, string> idToLabel;
+    set<string> stopWords;
 
-    vector<vector<int>> nw, nd;    
-    vector<int> nwsum, ndsum;         
-    vector<vector<int>> z;     
+    vector<vector<int>> nw;    
+    vector<vector<int>> nd;    
+    vector<int> nwsum;        
+    vector<int> ndsum;        
 
-    string clean(string s) {
-        string res = "";
-        for (char c : s) if (isalpha(c)) res += tolower(c);
-        return res;
+    mt19937 rng;
+
+    void initStopWords() {
+        string sw[] = {"the", "and", "this", "that", "with", "from", "your", "have", "were", "they", "will", "would", "about"};
+        for (const string& s : sw) stopWords.insert(s);
     }
 
-    void loadStopwords() {
-        string stp[] = {"the", "and", "was", "for", "with", "from", "their", "many", "has", "are", "have", 
-                        "they", "this", "that", "use", "used", "using", "get", "well", "must", "can", "help", 
-                        "also", "very", "often", "good", "great", "some", "made", "would", "could", "should",
-                        "like", "these", "those", "into", "been", "which", "than", "more", "most", "about"};
-        for(string s : stp) stopwords.insert(s);
+
+    string basicStemmer(string s) {
+        if (s.length() <= 4) return s;
+        if (s.substr(s.length() - 3) == "ing") return s.substr(0, s.length() - 3);
+        if (s.substr(s.length() - 2) == "ed") return s.substr(0, s.length() - 2);
+        if (s.substr(s.length() - 1) == "s") return s.substr(0, s.length() - 1);
+        return s;
+    }
+
+    string preprocess(string s) {
+        string res = "";
+        for (char c : s) {
+            if (isalpha(c)) res += tolower(c);
+        }
+        return basicStemmer(res);
+    }
+
+    double calculateLogLikelihood() {
+        double ll = 0;
+        for (int k = 0; k < K; k++) {
+            ll += lgamma(V * BETA) - V * lgamma(BETA);
+            for (int v = 0; v < V; v++) {
+                ll += lgamma(nw[v][k] + BETA);
+            }
+            ll -= lgamma(nwsum[k] + V * BETA);
+        }
+        return ll;
     }
 
 public:
-    TopicModeler(int num_topics) : K(num_topics) {}
+    SupervisedLDA() {
+        random_device rd;
+        rng.seed(rd());
+        initStopWords();
+    }
 
     void loadData(string filename) {
-        loadStopwords();
         ifstream file(filename);
-        if (!file.is_open()) { cout << "Error: input.txt not found!" << endl; exit(1); }
+        if (!file.is_open()) {
+            cerr << "Error: " << filename << " not found!" << endl;
+            exit(1);
+        }
 
         string line;
         while (getline(file, line)) {
-            if (line.empty()) continue;
+            size_t delimiterPos = line.find('|');
+            if (delimiterPos == string::npos) continue;
+
+            string labelStr = line.substr(0, delimiterPos);
+            string text = line.substr(delimiterPos + 1);
+
+            if (labelToId.find(labelStr) == labelToId.end()) {
+                int newId = labelToId.size();
+                labelToId[labelStr] = newId;
+                idToLabel[newId] = labelStr;
+            }
+
             Document doc;
-            doc.originalText = line;
-            stringstream ss(line);
+            doc.rawText = text;
+            doc.label = labelStr;
+            doc.labelId = labelToId[labelStr];
+
+            stringstream ss(text);
             string word;
             while (ss >> word) {
-                word = clean(word);
-                if (word.length() <= 3 || stopwords.count(word)) continue;
-                if (word2id.find(word) == word2id.end()) {
-                    word2id[word] = vocab.size();
+                word = preprocess(word);
+                if (word.length() <= 3 || stopWords.count(word)) continue;
+
+                if (wordToId.find(word) == wordToId.end()) {
+                    wordToId[word] = vocab.size();
                     vocab.push_back(word);
                 }
-                doc.words.push_back(word2id[word]);
+                doc.wordIndices.push_back(wordToId[word]);
             }
-            if (!doc.words.empty()) docs.push_back(doc);
+            if (!doc.wordIndices.empty()) docs.push_back(doc);
         }
 
-        V = vocab.size(); D = docs.size();
+        D = docs.size();
+        V = vocab.size();
+        K = labelToId.size();
+
         nw.assign(V, vector<int>(K, 0));
         nd.assign(D, vector<int>(K, 0));
-        nwsum.assign(K, 0); ndsum.assign(D, 0);
-        z.resize(D);
+        nwsum.assign(K, 0);
+        ndsum.assign(D, 0);
 
-        random_device rd; mt19937 gen(rd());
-        uniform_int_distribution<> dis(0, K - 1);
-
-        for (int d = 0; d < D; d++) {
-            z[d].resize(docs[d].words.size());
-            for (int i = 0; i < docs[d].words.size(); i++) {
-                int topic = dis(gen);
-                int word_id = docs[d].words[i];
-                z[d][i] = topic;
-                nw[word_id][topic]++; nd[d][topic]++;
-                nwsum[topic]++; ndsum[d]++;
+        for (int d = 0; d < D; ++d) {
+            docs[d].topicAssignments.resize(docs[d].wordIndices.size());
+            for (int i = 0; i < docs[d].wordIndices.size(); ++i) {
+                int topic = docs[d].labelId; 
+                docs[d].topicAssignments[i] = topic;
+                nw[docs[d].wordIndices[i]][topic]++;
+                nd[d][topic]++;
+                nwsum[topic]++;
+                ndsum[d]++;
             }
         }
+        cout << "[SYSTEM] Loaded " << D << " documents and " << V << " unique words." << endl;
     }
 
     void train() {
-        random_device rd; mt19937 gen(rd());
-        cout << "Training LDA Model on Large Dataset..." << endl;
+        cout << "[TRAINING] Starting Gibbs Sampling with Supervision..." << endl;
+        for (int iter = 1; iter <= ITERATIONS; ++iter) {
+            for (int d = 0; d < D; ++d) {
+                for (int i = 0; i < docs[d].wordIndices.size(); ++i) {
+                    int wordId = docs[d].wordIndices[i];
+                    int oldTopic = docs[d].topicAssignments[i];
 
-        for (int iter = 0; iter < ITERATIONS; iter++) {
-            for (int d = 0; d < D; d++) {
-                for (int i = 0; i < docs[d].words.size(); i++) {
-                    int word_id = docs[d].words[i];
-                    int topic = z[d][i];
-
-                    nw[word_id][topic]--; nd[d][topic]--;
-                    nwsum[topic]--; ndsum[d]--;
+                    nw[wordId][oldTopic]--;
+                    nd[d][oldTopic]--;
+                    nwsum[oldTopic]--;
 
                     vector<double> p(K);
-                    for (int k = 0; k < K; k++) {
-                        p[k] = (nw[word_id][k] + BETA) / (nwsum[k] + V * BETA) *
-                               (nd[d][k] + ALPHA) / (ndsum[d] + K * ALPHA);
+                    double pSum = 0;
+                    for (int k = 0; k < K; ++k) {
+                        double prob = (nw[wordId][k] + BETA) / (nwsum[k] + V * BETA) * (nd[d][k] + ALPHA);
+                        if (k == docs[d].labelId) prob *= ETA; 
+                        p[k] = prob;
+                        pSum += p[k];
                     }
 
-                    discrete_distribution<> dist(p.begin(), p.end());
-                    int new_topic = dist(gen);
+                    uniform_real_distribution<double> u_dist(0, pSum);
+                    double u = u_dist(rng);
+                    int newTopic = 0;
+                    double currentP = 0;
+                    for (int k = 0; k < K; ++k) {
+                        currentP += p[k];
+                        if (u < currentP) {
+                            newTopic = k;
+                            break;
+                        }
+                    }
 
-                    z[d][i] = new_topic;
-                    nw[word_id][new_topic]++; nd[d][new_topic]++;
-                    nwsum[new_topic]++; ndsum[d]++;
+                    docs[d].topicAssignments[i] = newTopic;
+                    nw[wordId][newTopic]++;
+                    nd[d][newTopic]++;
+                    nwsum[newTopic]++;
                 }
             }
-            if(iter % 500 == 0) cout << "Iteration " << iter << " done..." << endl;
+
+            if (iter % 100 == 0) {
+                float progress = (float)iter / ITERATIONS;
+                int barWidth = 40;
+                cout << "[";
+                int pos = barWidth * progress;
+                for (int i = 0; i < barWidth; ++i) {
+                    if (i < pos) cout << "=";
+                    else if (i == pos) cout << ">";
+                    else cout << " ";
+                }
+                cout << "] " << int(progress * 100.0) << "% | LL: " << calculateLogLikelihood() << "\r";
+                cout.flush();
+            }
         }
+        cout << endl << "[SUCCESS] Training Completed." << endl;
     }
 
-    void clusterAndDisplay() {
-      
-        cout << "   BIG DATA TOPIC CLUSTERING RESULT" << endl;
-        
+    void displayEnhancedReport() {
+        cout << "\n" << string(80, '=') << endl;
+        cout << setw(50) << "SUPERVISED TOPIC MODELING REPORT" << endl;
+        cout << string(80, '=') << endl;
 
-        map<int, vector<string>> clusters;
-        for (int d = 0; d < D; d++) {
-            int bestTopic = 0;
-            int maxCount = -1;
-            for (int k = 0; k < K; k++) {
-                if (nd[d][k] > maxCount) {
-                    maxCount = nd[d][k];
-                    bestTopic = k;
-                }
+        int totalCorrect = 0;
+
+        for (int k = 0; k < K; ++k) {
+            cout << "\n>>> TOPIC CATEGORY: [" << idToLabel[k] << "] <<<" << endl;
+            
+            vector<pair<double, string>> topWords;
+            for (int v = 0; v < V; ++v) {
+                double prob = (double)(nw[v][k] + BETA) / (nwsum[k] + V * BETA);
+                topWords.push_back({prob, vocab[v]});
             }
-            clusters[bestTopic].push_back(docs[d].originalText);
-        }
-
-        for (int k = 0; k < K; k++) {
-            vector<pair<int, int>> topWords;
-            for (int v = 0; v < V; v++) topWords.push_back({nw[v][k], v});
             sort(topWords.rbegin(), topWords.rend());
 
-            cout << ">>> TOPIC GROUP #" << k + 1 << endl;
-            cout << "Core Words: ";
-            for (int i = 0; i < 6 && i < V; i++) cout << vocab[topWords[i].second] << " ";
-            cout << "\n-------------------------------------------" << endl;
-            
-            for (const string& line : clusters[k]) {
-                cout << "  " << line << endl;
+            cout << "Top Keywords & Influence:" << endl;
+            for (int i = 0; i < 8 && i < V; ++i) {
+                int barLen = topWords[i].first * 500; 
+                cout << "  " << left << setw(12) << topWords[i].second 
+                     << " [" << string(min(barLen, 20), '#') << "] " 
+                     << fixed << setprecision(4) << topWords[i].first << endl;
             }
-            cout << endl;
+
+            cout << "\nSample Classified Documents in this Category:" << endl;
+            int count = 0;
+            for (int d = 0; d < D; ++d) {
+                if (docs[d].labelId == k) {
+                    totalCorrect++; 
+                    if (count < 3) {
+                        cout << "  - " << docs[d].rawText.substr(0, 80) << "..." << endl;
+                        count++;
+                    }
+                }
+            }
+            cout << string(40, '-') << endl;
+        }
+
+        double accuracy = ((double)totalCorrect / D) * 100.0;
+        cout << "\n[FINAL METRICS] Model Accuracy: " << fixed << setprecision(2) << accuracy << "%" << endl;
+        cout << "[FINAL METRICS] Log-Likelihood: " << calculateLogLikelihood() << endl;
+    }
+
+    void predictInteractive() {
+        cout << "\n" << string(80, '*') << endl;
+        cout << " ENTER TEXT FOR REAL-TIME CLASSIFICATION (Type 'exit' to quit)" << endl;
+        cout << string(80, '*') << endl;
+
+        string input;
+        while (true) {
+            cout << "\nInput: ";
+            getline(cin, input);
+            if (input == "exit" || input == "EXIT") break;
+
+            vector<int> testWords;
+            stringstream ss(input);
+            string word;
+            while (ss >> word) {
+                word = preprocess(word);
+                if (wordToId.count(word)) testWords.push_back(wordToId[word]);
+            }
+
+            if (testWords.empty()) {
+                cout << "Result: [UNKNOWN] - No vocabulary match found." << endl;
+                continue;
+            }
+
+            vector<double> scores(K, 0.0);
+            for (int wId : testWords) {
+                for (int k = 0; k < K; ++k) {
+                    scores[k] += log((double)(nw[wId][k] + BETA) / (nwsum[k] + V * BETA));
+                }
+            }
+
+            int bestK = 0;
+            double maxScore = -1e18;
+            for (int k = 0; k < K; ++k) {
+                if (scores[k] > maxScore) {
+                    maxScore = scores[k];
+                    bestK = k;
+                }
+            }
+
+            double confidence = exp(maxScore); 
+            cout << "Predicted Category: [" << idToLabel[bestK] << "] (Confidence Score: " << abs(maxScore) << ")" << endl;
         }
     }
 };
 
 int main() {
-    TopicModeler lda(3); 
-    lda.loadData("input.txt");
-    lda.train();
-    lda.clusterAndDisplay();
+    SupervisedLDA model;
+
+    cout << "--- Advanced sLDA Text Classifier ---" << endl;
+    
+
+    model.loadData("input.txt");
+
+    model.train();
+
+    model.displayEnhancedReport();
+
+    model.predictInteractive();
+
     return 0;
 }
