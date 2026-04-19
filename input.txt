@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 SPORTS|The football striker scored a magnificent goal in the final minutes.
+=======
+SPORTS|The football striker scored a magnificent goal in the final minutes football football .
+>>>>>>> 51c03b0
 SPORTS|Basketball players practice daily to improve their shooting and defense.
 SPORTS|The coach analyzed the game footage to improve the team strategy.
 SPORTS|Olympic athletes spend years preparing for a single gold medal competition.
@@ -9,7 +13,11 @@ SPORTS|The referee made a controversial decision during the final game.
 SPORTS|Swimming is an excellent full body workout that builds core strength.
 SPORTS|The championship trophy was awarded to the most consistent team.
 SPORTS|Gymnasts demonstrate incredible flexibility and strength in their routines.
+<<<<<<< HEAD
 SPORTS|Sportsmanship is an essential quality that every young player should learn.
+=======
+SPORTS|Sportsmanship is an essential quality that every young player should learn.AI
+>>>>>>> 51c03b0
 SPORTS|The marathon runner crossed the finish line after a grueling race.
 SPORTS|Professional cycling requires high quality equipment and aerodynamic clothing.
 SPORTS|The goalkeeper made a spectacular save to prevent a last minute goal.
@@ -153,12 +161,21 @@ HEALTH|Doctors recommend a balanced diet and regular exercise for good health.
 HEALTH|Modern hospitals use advanced medical technology for heart surgery.
 HEALTH|Maintaining personal hygiene is essential for preventing contagious diseases.
 HEALTH|Mental health awareness is crucial for a healthy and happy lifestyle.
+<<<<<<< HEAD
 HEALTH|Vaccination programs help prevent the spread of dangerous infections sick.
 HEALTH|Patients must follow the prescribed dosage of their medicine carefully.
 HEALTH|Nutritionists advise eating fresh vegetables and fruits every single day.
 HEALTH|The surgeon performed a complex transplant successfully using new tools Doctor Nurse Hospital Clinic Patient Treatment Diagnosis Therapy Surgery Medicine Pharmacy Physician Surgeon Care Ward Emergency Intensive-care First-aid Ambulance Prescription Antibiotic Vaccine Dose Syringe Stethoscope Scalpel Bandage Wellness Vitality Recovery Healing Prevention Hygiene Sanitation Nutrition Diet Calorie Protein Vitamin Carbohydrate Mineral Nutrient Fiber Antioxidant Metabolism Obesity Diabetes Cancer Infection Virus Bacteria Fever Cough Headache Pain Inflammation Allergy Asthma Stroke Heart-attack Blood-pressure Cholesterol Glucose Insulin Immunity Immune-system Cardiovascular Neurology Brain Psychology Anxiety Depression Stress Insomnia Sleep Fatigue Hydration Exercise Yoga Meditation Mindfulness Gym Fitness Aerobic Strength Endurance Muscle Bone Joint Spine Arthritis Lungs Liver Kidney Skin Digestion Respiratory Pediatrics Geriatrics Oncology Cardiology Dermatology Radiology Ultrasound MRI Scan X-ray Laboratory Blood-test Anesthesia Biopsy Pathology Chronic Acute Symptom Syndrome Disorder Remedy Pill Capsule Syrup Ointment Trauma Disability Rehabilitation Physical-therapy Nursing Detox Addiction Counselor Psychiatrist Mental-health Wellbeing Longevity Aging Mortality Genetics DNA Anatomy Physiology Hormone Adrenaline Cortisol Thyroid Enzymes Cells Tissues Organ Transplant Donation Pregnancy Maternity Infant Childhood Adolescence Puberty Menopause Gerontology Hospice Palliative Holistic Homeopathy Ayurveda Acupuncture Supplement Probiotic Prebiotic Superfood Gluten-free Vegan Organic Fasting Intermittent-fasting Electrolytes Posture Ergonomics Screening Pulse Heart-rate Respiration Temperature BMI Lipid-profile Blood-sugar Hemoglobin Wellness-check Physiotherapy Orthopedic Cardiology Nephrology Pulmonology Gastroenterology Endocrine Neurology Hematology Immunology Urology Ophthalmology Oncology Radiology Psychiatry Psychotherapy Counseling Wellness-center Health-insurance Medical-record Checkup Sanitizer Disinfectant Quarantine Immunity-boost Herbal Vitamin-C Calcium Magnesium Iron Zinc Potassium Omega-three Probiotics Detoxification Wellness-retreat Balanced-diet Lifestyle-disease Sedentary Mental-balance Emotional-health Physical-health Public-health Sanitation-system Medical-ethics.
 HEALTH|Regular checkups can identify potential health risks at an early stage.
 HEALTH|Yoga and meditation are effective practices for reducing daily stress.
+=======
+HEALTH|Vaccination programs help prevent the spread of dangerous infections.
+HEALTH|Patients must follow the prescribed dosage of their medicine carefully.
+HEALTH|Nutritionists advise eating fresh vegetables and fruits every single day he is very sick today    .
+HEALTH|The surgeon performed a complex transplant successfully using new tools Doctor Nurse Hospital Clinic Patient Treatment Diagnosis Therapy Surgery Medicine Pharmacy Physician Surgeon Care Ward Emergency Intensive-care First-aid Ambulance Prescription Antibiotic Vaccine Dose Syringe Stethoscope Scalpel Bandage Wellness Vitality Recovery Healing Prevention Hygiene Sanitation Nutrition Diet Calorie Protein Vitamin Carbohydrate Mineral Nutrient Fiber Antioxidant Metabolism Obesity Diabetes Cancer Infection Virus Bacteria Fever Cough Headache Pain Inflammation Allergy Asthma Stroke Heart-attack Blood-pressure Cholesterol Glucose Insulin Immunity Immune-system Cardiovascular Neurology Brain Psychology Anxiety Depression Stress Insomnia Sleep Fatigue Hydration Exercise Yoga Meditation Mindfulness Gym Fitness Aerobic Strength Endurance Muscle Bone Joint Spine Arthritis Lungs Liver Kidney Skin Digestion Respiratory Pediatrics Geriatrics Oncology Cardiology Dermatology Radiology Ultrasound MRI Scan X-ray Laboratory Blood-test Anesthesia Biopsy Pathology Chronic Acute Symptom Syndrome Disorder Remedy Pill Capsule Syrup Ointment Trauma Disability Rehabilitation Physical-therapy Nursing Detox Addiction Counselor Psychiatrist Mental-health Wellbeing Longevity Aging Mortality Genetics DNA Anatomy Physiology Hormone Adrenaline Cortisol Thyroid Enzymes Cells Tissues Organ Transplant Donation Pregnancy Maternity Infant Childhood Adolescence Puberty Menopause Gerontology Hospice Palliative Holistic Homeopathy Ayurveda Acupuncture Supplement Probiotic Prebiotic Superfood Gluten-free Vegan Organic Fasting Intermittent-fasting Electrolytes Posture Ergonomics Screening Pulse Heart-rate Respiration Temperature BMI Lipid-profile Blood-sugar Hemoglobin Wellness-check Physiotherapy Orthopedic Cardiology Nephrology Pulmonology Gastroenterology Endocrine Neurology Hematology Immunology Urology Ophthalmology Oncology Radiology Psychiatry Psychotherapy Counseling Wellness-center Health-insurance Medical-record Checkup Sanitizer Disinfectant Quarantine Immunity-boost Herbal Vitamin-C Calcium Magnesium Iron Zinc Potassium Omega-three Probiotics Detoxification Wellness-retreat Balanced-diet Lifestyle-disease Sedentary Mental-balance Emotional-health Physical-health Public-health Sanitation-system Medical-ethics.
+HEALTH|Regular checkups can identify potential health risks at an early stage.
+HEALTH|Yoga and meditation are effective practices for reducing daily stress sick.
+>>>>>>> 51c03b0
 HEALTH|Modern medicine has significantly increased the average human life expectancy.
 HEALTH|Hospitals are equipped with modern intensive care units and diagnostics.
 HEALTH|Physical therapy helps patients recover from bone injuries and muscle pain.
@@ -194,7 +211,11 @@ HEALTH|The medical team worked together to save the patient life.
 HEALTH|Healthy habits formed in youth can last for a lifetime.
 HEALTH|The clinic offers free health screenings for the local community.
 HEALTH|Proper posture can prevent long term back and
+<<<<<<< HEAD
 Education|the teacher teaches well lecture boring 
+=======
+Education|the teacher teaches well
+>>>>>>> 51c03b0
 Education|the students are brilliant
 Education|physics chemistry Biology math bangla Teacher Student School University College Education Learning Knowledge Classroom Professor Principal Pupil Tutor Mentor Teaching Research Study Library Campus Textbook Syllabus Curriculum Semester Degree Diploma Graduation Certificate Scholarship Tuition Enrollment Admission Faculty Department Lecture Seminar Workshop Homework Assignment Exam Test Grade Marks Result Rank Academic Thesis Dissertation Literacy Skill IQ Intelligence Pedagogy Discipline Notebook Pen Blackboard Chalk Desk Laboratory Experiment Science Mathematics History Literature Geography Physics Chemistry Biology Economics Sociology Philosophy Psychology Language Grammar Vocabulary Writing Reading Essay Bibliography Citation Reference Research-paper Peer-review Academic-journal Publication Conference Lecture-hall Tuition-fee Financial-aid Fellowship Grant Internship Apprenticeship Vocational-training Technical-education Online-learning E-learning Virtual-classroom Distance-education MOOC Edtech Software Application Computer-science Engineering Medical-school Law-school Business-school Art-school Music-school Physical-education Sports-coaching Extra-curricular Creative-writing Critical-thinking Logic Analysis Synthesis Evaluation Comprehension Memorization Rote-learning Active-learning Collaborative-learning Group-project Presentation Public-speaking Debate Quiz Olympiad Competition Achievement Excellence Merit Honor Dean-list Alumni Convocation Cap-and-gown Whiteboard Projector Tablet E-book Digital-library Encyclopedia Dictionary Thesaurus Translation Language-lab Kindergarten Preschool Primary-school Secondary-school High-school Middle-school College-prep SAT GRE GMAT TOEFL IELTS Admission-test Entrance-exam Proctored-exam Open-book Final-exam Midterm Practical-exam Oral-exam Viva Portfolio Assessment Feedback Peer-feedback Teacher-training Educational-psychology Child-development Lifelong-learning Adult-education Continuing-education Professional-development Workshop-training Certification Accreditation Quality-assurance Academic-integrity Plagiarism Citation-style APA MLA Chicago-style Harvard-referencing Student-loan Grant-funding Academic-calendar Spring-break Summer-school Winter-session Study-abroad Exchange-program International-student Campus-life Dormitory Residence-hall Student-union Counseling Career-center Placement Internship-program Graduate-assistantship Teaching-assistant Post-doc Researcher Scholar Intellectual Academic-excellence Schooling read Instruction Edification Enlightenment Coaching Guidance Counseling School-bus Uniform School-supplies Stationery.
 TECHNOLOGY|Artificial intelligence is revolutionizing the way we process large datasets.
@@ -220,7 +241,11 @@ TECHNOLOGY|Neural networks are inspired by the structure of the human brain.
 TECHNOLOGY|Edge computing processes data closer to the source to reduce delay.
 TECHNOLOGY|Supercomputers are used for weather forecasting and molecular modeling.
 TECHNOLOGY|The motherboard connects the CPU, memory, and other essential components.
+<<<<<<< HEAD
 TECHNOLOGY|Natural language processing enables computers to  human speech.
+=======
+TECHNOLOGY|Natural language processing enables computers to understand human speech.
+>>>>>>> 51c03b0
 TECHNOLOGY|Big data analytics reveals patterns and trends in massive information sets.
 TECHNOLOGY|DevOps practices integrate software development and IT operations.
 TECHNOLOGY|Wearable technology like smartwatches can monitor your heart rate and sleep.
@@ -300,7 +325,11 @@ TECHNOLOGY|Technological advancement leads to increased productivity and efficie
 BUSINESS|The quarterly revenue exceeded the expectations of the financial analysts.
 BUSINESS|Startups often struggle with cash flow management in their early stages.
 BUSINESS|The board of directors approved the merger with the international competitor.
+<<<<<<< HEAD
 BUSINESS|Marketing strategies are shifting towards social media and influencer outreach.
+=======
+BUSINESS|Marketing strategies are shifting towards social media and influencer outreach business business business.
+>>>>>>> 51c03b0
 BUSINESS|Investors are looking for high-growth opportunities in the emerging markets.
 BUSINESS|A strong brand identity helps a company stand out in a crowded marketplace.
 BUSINESS|Profit margins have decreased due to the rising costs of raw materials.
@@ -396,5 +425,9 @@ BUSINESS|The warehouse manager optimized the storage space for better efficiency
 BUSINESS|Cold calling is a traditional but difficult sales technique.
 BUSINESS|The business card still serves as a basic tool for networking.
 BUSINESS|An exit strategy outlines how an investor will sell their stake.
+<<<<<<< HEAD
 BUSINESS|Customer feedback is vital for improving product quality and service.
 Food|The food at this restaurant is absolutely delicious.
+=======
+BUSINESS|Customer feedback is vital for improving product quality and service.
+>>>>>>> 51c03b0
