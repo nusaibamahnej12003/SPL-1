@@ -1,3 +1,4 @@
+
 #include "topic_model.h"
 #include "sentiment.h"
 #include <fstream>
@@ -5,6 +6,7 @@
 // ── Recommendation engine ──────────────────────────────────────────
 // topic + overall sentiment দেখে recommendation দেয়
 string getRecommendation(const string& topic, const string& overallEmotion,
+
                           double avgScore, int pos, int neg, int neu)
 {
     // topic specific recommendation
@@ -38,7 +40,7 @@ string getRecommendation(const string& topic, const string& overallEmotion,
         else if (avgScore < -0.2)
             return "Tech concerns noted. Evaluate tools and solutions carefully.";
         else
-            return "Neutral tech sentiment. Explore more tech opportunities.";
+            return "Neutral tech sentiment. Explore more tech opportunities .";
     }
     if (topic == "Entertainment") {
         if (avgScore > 0.2)
