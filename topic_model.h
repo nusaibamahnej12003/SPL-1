@@ -187,14 +187,42 @@ private:
 public:
     TextPreprocessor()
     {
-        string sw[] = {
-            "the","and","this","that","with","from","your","have","were",
-            "they","will","would","about","been","also","more","when","which",
-            "their","there","what","into","than","then","its","but","not",
-            "are","was","for","has","his","her","she","him","you","can",
-            "all","one","had","our","they","just","very","much","some",
-            "such","only","even","most","after","before","those","these",
-            "is","in","to","a","an","of","it","he","i","at","on","by"
+        // Expanded stopword list — 120+ words
+        // topic modeling এ common words filter করা হয় যাতে
+        // শুধু meaningful content words থাকে
+        vector<string> sw = {
+            // articles & prepositions
+            "the","a","an","of","in","on","at","to","for","by","with",
+            "from","into","onto","upon","over","under","about","above",
+            "below","between","among","through","during","before","after",
+            "without","within","along","across","behind","beyond","near",
+            // conjunctions
+            "and","or","but","nor","so","yet","both","either","neither",
+            "although","though","because","since","while","whereas","if",
+            "unless","until","when","whenever","where","wherever","whether",
+            // pronouns
+            "i","me","my","myself","we","our","ours","ourselves",
+            "you","your","yours","yourself","yourselves",
+            "he","him","his","himself","she","her","hers","herself",
+            "it","its","itself","they","them","their","theirs","themselves",
+            "this","that","these","those","which","who","whom","whose","what",
+            // auxiliary verbs
+            "is","are","was","were","be","been","being",
+            "have","has","had","having","do","does","did","doing",
+            "will","would","shall","should","may","might","must","can","could",
+            // common adverbs & fillers
+            "not","no","more","most","also","just","very","much","many",
+            "some","such","only","even","then","than","there","here",
+            "all","any","each","every","few","little","own","same","other",
+            "another","else","already","still","again","once","now","too",
+            "well","quite","rather","however","therefore","thus","hence",
+            "furthermore","moreover","meanwhile","instead","otherwise",
+            // short common words
+            "up","out","off","down","as","how","one","two","three",
+            "first","second","said","new","get","got","use","used","go",
+            "going","come","came","take","taken","make","made","see","seen",
+            "know","known","say","says","think","like","need","want","way",
+            "thing","things","time","day","year","people","man","woman"
         };
         for (const string& s : sw) stopWords.insert(s);
     }
@@ -265,7 +293,7 @@ public:
 
 const double LDA_ALPHA = 0.1;
 const double LDA_BETA  = 0.01;
-const double LDA_ETA   = 150.0;
+const double LDA_ETA   = 5.0;   
 const int    LDA_ITER  = 1000;
 const int    BURN_IN   = 200;
 const int    THINNING  = 5;
@@ -292,6 +320,7 @@ private:
     vector<int>            nwsum;
     vector<int>            ndsum;
     vector<vector<double>> nw_acc;
+    vector<double>         nwsum_acc;   // nw_acc এর column sum — predict() এ দরকার
     int                    acc_count = 0;
     mt19937                rng;
     TextPreprocessor       preprocessor;
@@ -304,10 +333,22 @@ private:
         nwsum.assign(K, 0);
         ndsum.assign(D, 0);
         nw_acc.assign(V, vector<double>(K, 0.0));
+        nwsum_acc.assign(K, 0.0);
+        uniform_int_distribution<int> randTopic(0, K - 1);
+        uniform_real_distribution<double> coin(0.0, 1.0);
+
         for (int d = 0; d < D; ++d) {
             docs[d].topicAssignments.resize(docs[d].wordIndices.size());
             for (int i = 0; i < (int)docs[d].wordIndices.size(); ++i) {
-                int t = docs[d].labelId;
+                int t;
+                if (coin(rng) < 0.7) {
+                    // ৭০% → label topic
+                    t = docs[d].labelId;
+                } else {
+                    // ৩০% → label বাদে অন্য random topic
+                    int r = randTopic(rng);
+                    t = (r == docs[d].labelId) ? (r + 1) % K : r;
+                }
                 docs[d].topicAssignments[i] = t;
                 nw[docs[d].wordIndices[i]][t]++;
                 nd[d][t]++; nwsum[t]++; ndsum[d]++;
@@ -401,6 +442,9 @@ public:
                 for (int v = 0; v < V; v++)
                     for (int k = 0; k < K; k++)
                         nw_acc[v][k] += nw[v][k];
+                // nwsum ও জমা করি — predict() এ normalized probability এর জন্য
+                for (int k = 0; k < K; k++)
+                    nwsum_acc[k] += nwsum[k];
                 acc_count++;
             }
 
@@ -413,16 +457,21 @@ public:
             }
         }
 
-        if (acc_count > 0)
+        if (acc_count > 0) {
             for (int v = 0; v < V; v++)
                 for (int k = 0; k < K; k++)
                     nw_acc[v][k] /= acc_count;
+            for (int k = 0; k < K; k++)
+                nwsum_acc[k] /= acc_count;   // average sum
+        }
 
         cout << "[Topic Model] Training complete! Samples: " << acc_count << endl;
     }
 
     string predict(const string& input)
     {
+        if (acc_count == 0) return "NOT_TRAINED";
+
         vector<string> tokens = preprocessor.tokenize(input);
         vector<int> testWords;
         for (const string& tok : tokens)
@@ -433,10 +482,23 @@ public:
         int bestK = 0; double maxScore = -1e18;
         for (int k = 0; k < K; ++k) {
             double score = 0;
-            for (int wId : testWords)
-                score += log((nw[wId][k] + LDA_BETA) / (nwsum[k] + V * LDA_BETA));
+            for (int wId : testWords) {
+                double phi = (nw_acc[wId][k] + LDA_BETA) / (nwsum_acc[k] + V * LDA_BETA);
+                score += log(phi);
+            }
             if (score > maxScore) { maxScore = score; bestK = k; }
         }
         return idToLabel[bestK];
     }
+
 };
+
+inline map<string, vector<string>> clusterByTopic(
+    SupervisedLDA& model,
+    const vector<string>& sentences)
+{
+    map<string, vector<string>> clusters;
+    for (const string& s : sentences)
+        clusters[model.predict(s)].push_back(s);
+    return clusters;
+}

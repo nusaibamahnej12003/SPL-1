@@ -1,4 +1,4 @@
-SPORTS|The football striker scored a magnificent goal in the final minutes.
+SPORTS|The football striker scored a magnificent goal in the final minutes football football .
 SPORTS|Basketball players practice daily to improve their shooting and defense.
 SPORTS|The coach analyzed the game footage to improve the team strategy.
 SPORTS|Olympic athletes spend years preparing for a single gold medal competition.
@@ -9,7 +9,7 @@ SPORTS|The referee made a controversial decision during the final game.
 SPORTS|Swimming is an excellent full body workout that builds core strength.
 SPORTS|The championship trophy was awarded to the most consistent team.
 SPORTS|Gymnasts demonstrate incredible flexibility and strength in their routines.
-SPORTS|Sportsmanship is an essential quality that every young player should learn.
+SPORTS|Sportsmanship is an essential quality that every young player should learn.AI
 SPORTS|The marathon runner crossed the finish line after a grueling race.
 SPORTS|Professional cycling requires high quality equipment and aerodynamic clothing.
 SPORTS|The goalkeeper made a spectacular save to prevent a last minute goal.
@@ -155,10 +155,10 @@ HEALTH|Maintaining personal hygiene is essential for preventing contagious disea
 HEALTH|Mental health awareness is crucial for a healthy and happy lifestyle.
 HEALTH|Vaccination programs help prevent the spread of dangerous infections.
 HEALTH|Patients must follow the prescribed dosage of their medicine carefully.
-HEALTH|Nutritionists advise eating fresh vegetables and fruits every single day.
+HEALTH|Nutritionists advise eating fresh vegetables and fruits every single day he is very sick today    .
 HEALTH|The surgeon performed a complex transplant successfully using new tools Doctor Nurse Hospital Clinic Patient Treatment Diagnosis Therapy Surgery Medicine Pharmacy Physician Surgeon Care Ward Emergency Intensive-care First-aid Ambulance Prescription Antibiotic Vaccine Dose Syringe Stethoscope Scalpel Bandage Wellness Vitality Recovery Healing Prevention Hygiene Sanitation Nutrition Diet Calorie Protein Vitamin Carbohydrate Mineral Nutrient Fiber Antioxidant Metabolism Obesity Diabetes Cancer Infection Virus Bacteria Fever Cough Headache Pain Inflammation Allergy Asthma Stroke Heart-attack Blood-pressure Cholesterol Glucose Insulin Immunity Immune-system Cardiovascular Neurology Brain Psychology Anxiety Depression Stress Insomnia Sleep Fatigue Hydration Exercise Yoga Meditation Mindfulness Gym Fitness Aerobic Strength Endurance Muscle Bone Joint Spine Arthritis Lungs Liver Kidney Skin Digestion Respiratory Pediatrics Geriatrics Oncology Cardiology Dermatology Radiology Ultrasound MRI Scan X-ray Laboratory Blood-test Anesthesia Biopsy Pathology Chronic Acute Symptom Syndrome Disorder Remedy Pill Capsule Syrup Ointment Trauma Disability Rehabilitation Physical-therapy Nursing Detox Addiction Counselor Psychiatrist Mental-health Wellbeing Longevity Aging Mortality Genetics DNA Anatomy Physiology Hormone Adrenaline Cortisol Thyroid Enzymes Cells Tissues Organ Transplant Donation Pregnancy Maternity Infant Childhood Adolescence Puberty Menopause Gerontology Hospice Palliative Holistic Homeopathy Ayurveda Acupuncture Supplement Probiotic Prebiotic Superfood Gluten-free Vegan Organic Fasting Intermittent-fasting Electrolytes Posture Ergonomics Screening Pulse Heart-rate Respiration Temperature BMI Lipid-profile Blood-sugar Hemoglobin Wellness-check Physiotherapy Orthopedic Cardiology Nephrology Pulmonology Gastroenterology Endocrine Neurology Hematology Immunology Urology Ophthalmology Oncology Radiology Psychiatry Psychotherapy Counseling Wellness-center Health-insurance Medical-record Checkup Sanitizer Disinfectant Quarantine Immunity-boost Herbal Vitamin-C Calcium Magnesium Iron Zinc Potassium Omega-three Probiotics Detoxification Wellness-retreat Balanced-diet Lifestyle-disease Sedentary Mental-balance Emotional-health Physical-health Public-health Sanitation-system Medical-ethics.
 HEALTH|Regular checkups can identify potential health risks at an early stage.
-HEALTH|Yoga and meditation are effective practices for reducing daily stress.
+HEALTH|Yoga and meditation are effective practices for reducing daily stress sick.
 HEALTH|Modern medicine has significantly increased the average human life expectancy.
 HEALTH|Hospitals are equipped with modern intensive care units and diagnostics.
 HEALTH|Physical therapy helps patients recover from bone injuries and muscle pain.
@@ -300,7 +300,7 @@ TECHNOLOGY|Technological advancement leads to increased productivity and efficie
 BUSINESS|The quarterly revenue exceeded the expectations of the financial analysts.
 BUSINESS|Startups often struggle with cash flow management in their early stages.
 BUSINESS|The board of directors approved the merger with the international competitor.
-BUSINESS|Marketing strategies are shifting towards social media and influencer outreach.
+BUSINESS|Marketing strategies are shifting towards social media and influencer outreach business business business.
 BUSINESS|Investors are looking for high-growth opportunities in the emerging markets.
 BUSINESS|A strong brand identity helps a company stand out in a crowded marketplace.
 BUSINESS|Profit margins have decreased due to the rising costs of raw materials.
